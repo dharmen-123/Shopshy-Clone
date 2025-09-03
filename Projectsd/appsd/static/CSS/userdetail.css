@@ -1,0 +1,49 @@
+  *{
+    margin: 0%;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .container {
+      max-width: 450px;
+      margin: 60px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .form-title {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 25px;
+      color: #343a40;
+    }
+    .password-checklist {
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+    .password-checklist li {
+      list-style: none;
+      margin-bottom: 5px;
+    }
+    .valid {
+      color: green;
+    }
+    .invalid {
+      color: gray;
+    }
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+  .headbar{
+        display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30%;
+    margin-bottom: 15px;
+  }

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+Shopsy all Products
+{% endblock  %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'CSS/home.css' %}"> 
+{% endblock  %}
+
+{% block content %}
+  
+<section id="slider-section">
+ 
+<div class="container py-4 px-0">
+  <div class="row g-2"> 
+     <!-- Product Card -->
+      {% for product  in products %}
+    <div class="col-6 col-md-3 outer-card">
+      <div class="product-card">
+        <div class="image-card">
+        <div class="wishlist-icon">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+        <a href="{% url 'show_item' ds=product.description pk=product.id  %}">
+          <img src="{{product.thumbnail}}" class="product-img" alt="Product">
+        </a>
+        <div class="p-2">
+          <h6 class="mb-1 text-truncate">{{product.description}}</h6>
+          <div class="mb-1">
+            <span class="discount">{{product.offprice}}% off</span>
+            <span class="price-old">₹{{product.mrp}}</span>
+            <span class="fw-bold">₹{{product.price}}</span>
+          </div>
+          <div class="rating">
+            <i class="fa-solid fa-star text-success"></i> {{product.rating}} ★
+          </div>
+        </div>
+
+      </div>
+      </div>
+    </div> 
+    {% endfor %}
+    <!-- Duplicate more product cards as needed -->
+    
+  </div>
+</div>
+</section>    
+{% endblock content %}
+
+{% block script %}
+
+{% endblock script %}

@@ -1,0 +1,230 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Products{% endblock title %}
+
+{% block  link %}
+<link rel="stylesheet" href="{% static 'CSS/showitem.css' %}">
+{% endblock link %}
+
+{% block content %}
+<div class="show-product container py-0 px-4">
+  <div class="product-part row g-4">
+    <!-- Left Side: Images & Buttons -->
+    <div class="col-lg-6 product-left">
+      <div class="product-images">
+        <!-- Thumbnail Images -->
+        <div class="product-thumbnails thumbs" id="top-thumnail">
+          {% for img in products.images %}
+          <img src="{{img}}" alt="Thumbnail 1" class="thumbimg" onmouseenter="changeimg(this)">
+          {% endfor %}
+        </div>
+
+        <!-- Main Image -->
+        <div class="product-main-image">
+          <img src="{{products.thumbnail}}" alt="Main Product" id="mainimg">
+          <span class="wishlist-btn"><i class="fas fa-heart"></i></span>
+          <span class="share-btn"><i class="fas fa-share-alt"></i></span>
+        </div>
+       
+      </div>
+        <div class="product-thumbnails thumbs" id="bottom-thumnail">
+         {% for img in products.images %}
+          <img src="{{img}}" alt="Thumbnail 1" class="thumbimg" onmouseenter="changeimg(this)">
+          {% endfor %}
+        </div>
+      <!-- Action Buttons -->
+      <div class="action-buttons d-flex mt-4">
+        <form action="{% url 'add_to_cart' ds=products.description  pk=products.id  %}" method="post" enctype="multipart/form-data" class="w-50">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-dark w-100">Add to Cart</button>
+        </form>
+        <form action="" method="post" enctype="multipart/form-data"  class="w-50">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-buy w-100">Buy Now</button>
+        </form>
+
+      </div>
+    </div>
+
+    <!-- Right Side: Product Details -->
+    <div class="col-lg-6 product-right">
+      <div class="product-details product-about">
+        <p class="text-grey url-line">Home / {{products.itemtype}} / {{products.category}} / {{products.name}} / </p>
+        <h5 class="fw-bold">{{products.description}}</h5>
+
+        <div class="d-flex align-items-center my-2">
+          <span class="price">₹{{products.price}}</span>
+          <span class="old-price">₹{{products.mrp}}</span>
+          <span class="discount">{{products.offprice}}% off</span>
+        </div>
+
+        <p class="text-success fw-semibold">Min 2 items</p>
+
+        <div class="d-flex align-items-center">
+          <span class="rating">
+            {{products.rating}}
+             ★★★★☆
+          </span>
+          <small class="text-muted ms-2">1,290 ratings & 31 reviews</small>
+        </div>
+
+        {% comment %} <!-- Size Selection -->
+        <div class="mt-3">
+          <h6>Select Size</h6>
+          <div class="size-btn d-flex">
+            <input type="radio" id="s" name="size"><label for="s">S</label>
+            <input type="radio" id="m" name="size"><label for="m">M</label>
+            <input type="radio" id="l" name="size"><label for="l">L</label>
+            <input type="radio" id="xl" name="size"><label for="xl">XL</label>
+            <input type="radio" id="xxl" name="size"><label for="xxl">XXL</label>
+          </div>
+        </div> {% endcomment %}
+
+    <div class="card-box">
+      <h5 class="mb-0">Available Offers</h5>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <!-- Always visible offers -->
+        <li class="list-group-item">
+          <strong>Bank Offer:</strong> 5% cashback on Flipkart Axis Bank Credit Card up to ₹4,000 per statement quarter.
+          <a href="#" class="text-decoration-none ms-2">T&C</a>
+        </li>
+        <li class="list-group-item">
+          <strong>Bank Offer:</strong> 5% cashback on Axis Bank Flipkart Debit Card up to ₹750.
+          <a href="#" class="text-decoration-none ms-2">T&C</a>
+        </li>
+        <li class="list-group-item">
+          <strong>Bank Offer:</strong> 5% cashback on Flipkart SBI Credit Card up to ₹4,000 per calendar quarter.
+          <a href="#" class="text-decoration-none ms-2">T&C</a>
+        </li>
+        <li class="list-group-item">
+          <strong>Special Price:</strong> Get extra 50% off (price inclusive of cashback/coupon).
+          <a href="#" class="text-decoration-none ms-2">T&C</a>
+        </li>
+
+        <!-- Hidden offers -->
+        <div id="extraOffers" style="display: none;">
+          <li class="list-group-item">
+            <strong>Bank Offer:</strong> 10% off on ICICI Credit Cards on orders above ₹5,000.
+            <a href="#" class="text-decoration-none ms-2">T&C</a>
+          </li>
+          <li class="list-group-item">
+            <strong>Exchange Offer:</strong> Up to ₹2,000 off on old device exchange.
+            <a href="#" class="text-decoration-none ms-2">T&C</a>
+          </li>
+          <li class="list-group-item">
+            <strong>Combo Offer:</strong> Buy 2 accessories and get 20% off.
+            <a href="#" class="text-decoration-none ms-2">T&C</a>
+          </li>
+          <li class="list-group-item">
+            <strong>EMI Offer:</strong> No-cost EMI available on select cards.
+            <a href="#" class="text-decoration-none ms-2">T&C</a>
+          </li>
+        </div>
+      </ul>
+      <!-- Toggle Button -->
+      <div class="mt-3 text-start">
+        <button id="toggleBtn" class="btn btn-outline-primary btn-sm" onclick="toggleOffers()">View 6 more offers</button>
+      </div>
+    </div>
+
+        <!-- Specifications -->
+        <div class="spec-box">
+          <h6>Specifications</h6>
+          <ul class="list-unstyled mb-0">
+            <li><b>Color:</b> Multicolor</li>
+            <li><b>Type:</b> Round Neck</li>
+            <li><b>Sleeve:</b> Half Sleeve</li>
+            <li><b>Fit:</b> Regular</li>
+            <li><b>Fabric:</b> Polyester</li>
+          </ul>
+        </div>
+        <h3>Ratings & Reviews</h3>
+<div class="d-flex justify-content-between align-items-center">
+  <!-- Average Rating -->
+  <div class="rating-summary">
+    <div class="stars">★★★★☆</div>
+    <p>4 ratings and 0 reviews</p>
+  </div>
+
+  <!-- Rating Breakdown -->
+  <div>
+  <div class="bar-container">
+    <div class="bar-label">5★</div>
+    <div class="bar">
+      <div class="bar-fill green" style="width: 70%;"></div>
+    </div>
+    <div>2</div>
+  </div>
+
+  <div class="bar-container">
+    <div class="bar-label">4★</div>
+    <div class="bar">
+      <div class="bar-fill green" style="width: 60%;"></div>
+    </div>
+    <div>2</div>
+  </div>
+
+  <div class="bar-container">
+    <div class="bar-label">3★</div>
+    <div class="bar">
+      <div class="bar-fill gray" style="width: 30%;"></div>
+    </div>
+    <div>0</div>
+  </div>
+<div class="bar-container">
+    <div class="bar-label">2★</div>
+    <div class="bar">
+      <div class="bar-fill orange" style="width: 20%;"></div>
+    </div>
+    <div>0</div>
+  </div>
+
+  <div class="bar-container">
+    <div class="bar-label">1★</div>
+    <div class="bar">
+      <div class="bar-fill red" style="width: 0%;"></div>
+    </div>
+    <div>0</div>
+  </div>
+  </div>
+</div>
+  <!-- Prompt -->
+  <p>Be the first to ask about this product.</p>
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    function changeimg(thumb){
+    const mainimg=document.getElementById('mainimg');
+        mainimg.src=thumb.src
+      }
+</script>
+
+{% endblock content %}
+
+
+{% block script %}
+<script>
+    function toggleOffers() {
+    const extra = document.getElementById("extraOffers");
+    const btn = document.getElementById("toggleBtn");
+    if (extra.style.display === "none") {
+      extra.style.display = "block";
+      btn.textContent = "Show less";
+    } else {
+      extra.style.display = "none";
+      btn.textContent = "View 6 more offers";
+    }
+  }
+
+</script>
+{% endblock script %}

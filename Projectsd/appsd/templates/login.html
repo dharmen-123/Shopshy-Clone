@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f0f0f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 15px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: inset 5px 5px 10px rgb(228, 220, 220),
+                inset -5px -5px 10px rgb(228, 220, 220);
+}
+
+.headbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30%;
+    margin-bottom: 15px;
+}
+
+.arrow-left span {
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(88, 47, 255);
+}
+
+.logo a {
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(88, 47, 255);
+}
+#login-btn{
+    background: linear-gradient(to right, #1e90ff, #004aad);
+    color: white;
+    margin-left: 25%;
+    border-radius: 17px;
+    align-items: center;
+    max-width: 200px;
+    padding: 10px 20px ;
+    font-size: 25px;
+    margin: 5% 0% 5% 25%;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.forgot {
+    color: #1e90ff;
+    font-size: 14px;
+    margin: 5px 0;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to right, #1e90ff, #004aad);
+}
+
+.text {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.text a {
+    color: #1e90ff;
+}
+.alert-success {
+  background: linear-gradient(to right, #28a745, #218838) !important;
+  color: white !important;
+}
+.alert-danger {
+  background: linear-gradient(to right, #dc3545, #c82333) !important;
+  color: white !important;
+}
+.alert-warning {
+  background: linear-gradient(to right, #ffc107, #e0a800) !important;
+  color: black !important;
+}
+.alert-info {
+  background: linear-gradient(to right, #17a2b8, #138496) !important;
+  color: white !important;
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="headbar">
+       <a href="{% url 'home' %}" class="arrow-left"><span class="material-symbols-outlined">arrow_back</span></a>
+       <h1 class="logo"><a href="#">shopsy</a></h1>
+    </div>
+    <div class="d-flex justify-content-center align-items-center text-white bg-secondary">
+         Welcome back
+    </div>
+    <h2 id="login-btn">Welcome </h2>
+     <div class="text-center text-grey">lets join us for shop</div>
+     {% comment %} {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show " role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %} {% endcomment %}
+    <form action="{% url 'login_user' %}" method="post" enctype="multipart/form-data" id="loginForm">
+        {% csrf_token %}
+        <input type="email" name=email value="" placeholder="Email Address" id="email" >
+        <input type="password" name=password value="" placeholder="Password" >
+        <span class="forgot"><a href="">Forgot password?</a></span>
+        <button type="submit" class="submit-btn">Login</button>
+        <div class="text">Not a member? <a href="{% url 'register_user' %}">Register now</a></div>
+    </form>
+</div>
+
+ <script>
+      setTimeout(() => {
+    document.querySelectorAll('.alert').forEach(alert => {
+      alert.classList.remove('show');
+      alert.classList.add('fade');
+    });
+  }, 3000); 
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+ {% if messages %}
+  {% for message in messages %}
+    <script>
+      Swal.fire({
+        icon: '{{ message.tags }}',
+        title: '{{ message }}'
+      });
+    </script>
+  {% endfor %}
+{% endif %} 
+<script>
+  document.getElementById("loginForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent default form submission
+
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.querySelector("input[name='password']");
+
+    const emailValue = emailInput.value.trim();
+    const passwordValue = passwordInput.value.trim();
+
+    // Regex for basic Gmail format
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+
+    // Validation logic
+    if (emailValue === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Email Required",
+        text: "Please enter your email address."
+      });
+    } else if (!emailPattern.test(emailValue)) {
+      Swal.fire({
+        icon: "warning",
+        title: "Invalid Email",
+        text: "Only Gmail addresses are allowed (e.g. you@gmail.com)."
+      });
+    } else if (passwordValue === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Password Required",
+        text: "Please enter your password."
+      });
+    } else {
+      // Optional: Show success message before submitting
+      Swal.fire({
+        icon: "success",
+        title: "Processing....",
+        text: "Logging you in...",
+        showConfirmButton: false,
+        timer: 1500
+      });
+
+      // Submit the form after a short delay
+      setTimeout(() => {
+        document.getElementById("loginForm").submit();
+      }, 1600);
+    }
+  });
+</script>
+</body>
+</html>

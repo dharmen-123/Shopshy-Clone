@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+  Billing Address
+{% endblock title %}
+
+{% block link %}
+  <link rel="stylesheet" href="{% static 'CSS/address.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+
+  {% endblock link %}
+
+{% block content %}
+
+  <main class="checkout">
+    <!-- === Billing Address === -->
+<section class="form">
+  <h2>Delivery Address</h2>
+  <p class="sub">We’ll use this information to send your receipt & updates.</p>
+
+  <form action="{% url 'user_address' %}" method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+    <div class="field">
+      <label for="email">Email Address *</label>
+      <input id="email" name="email" type="email" value="{{userdata.email}}" placeholder="you@example.com" required readonly>
+      <span class="hint">We’ll never share your email.</span>
+    </div>
+
+    <div class="field">
+      <label for="first">Name *</label>
+      <input id="first" name="name" type="text" value="{{userdata.name}}" placeholder="name" required minlength="3" readonly>
+    </div>
+
+    <div class="field">
+      <label for="last">Mobile no *</label>
+      <input id="last" name="number" type="number" value="{{userdata.number}}" placeholder="Enter the number" required pattern="[0-9]{10}" maxlength="10" readonly>
+    </div>
+
+    <div class="field">
+      <label for="last">Alternate no *</label>
+      <input id="last" name="alternateno" type="number" value="" placeholder="Enter the alternate number" required pattern="[0-9]{10}" maxlength="10">
+    </div>
+
+    <div class="field full">
+      <label for="addr1">Address Line 1 *</label>
+      <input id="addr1" name="address1" type="text" value="" placeholder="House no, street" required>
+    </div>
+
+    <div class="field full">
+      <label for="addr2">Address Line 2</label>
+      <input id="addr2" name="address2" type="text" value="" placeholder="Apartment, suite, etc. (optional)">
+    </div>
+
+    <div class="field">
+      <label for="country">Country *</label>
+      <select id="country" name="country" required>
+        <option value="" selected disabled>Select country</option>
+        <option value="United States">United States</option>
+        <option value="India">India</option>
+        <option value="United Kingdom">United Kingdom</option>
+        <option value="Canada">Canada</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="zip">Zip / Postal Code *</label>
+      <input id="zip" name="zipcode" type="text" value="" inputmode="numeric" placeholder="123456" required pattern="[0-9]{6}" maxlength="6">
+    </div>
+
+    <div class="field">
+      <label for="city">City *</label>
+      <input id="city" name="city" type="text" value="" placeholder="City" required>
+    </div>
+
+    <div class="field">
+      <label for="state">State / Province *</label>
+      <select id="state" name="state" required>
+        <option value="" selected disabled>Choose state</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Panjab">Panjab</option>
+        <option value="Madhya Pradesh">Madhya Pradesh</option>
+        <option value="Bihar">Bihar</option>
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Gujrat">Gujrat</option>
+        <option value="Chattishgarh">Chattishgarh</option>
+      </select>
+    </div>
+     <div class="field full">
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </div>
+  </form>
+</section>
+
+    <!-- === Order Summary === -->
+    <aside class="summary">
+      {% if address %}
+      <h3 class="text-center">Previous Address</h3>
+      <form action="{% url 'selectaddress' %}" method="post" class="w-100">
+        {% csrf_token %}
+        {% for i in address %}  
+    <div class="width: 100%; padding: 10px 0; border-bottom: 1px solid #ccc;" >
+        <input type="radio" name="alladdress" value="{{ i.id }}" style="width: 35px; height: 35px;">
+        <p>
+          {{ i.address1 }}
+          {{ i.address2 }}
+          {{ i.city }} - {{ i.zipcode }}
+          {{ i.state }}
+          {{ i.country }}
+          {{ i.alternateno }}
+        </p>
+      </div><br>
+    {% endfor %}
+     <button class="btn text-white" style="background-color: darkmagenta;" type="submit">Select Address</button>
+     </form>
+     {% endif %}
+      <br><br>
+      <h2>Order Summary</h2>
+      <div class="line"><span>Items ({{count}})</span><strong>₹{{totalmrp}}</strong></div>
+      <div class="line"><span>Promotional Savings</span><strong style="color:#dc2626">- ₹{{savings}}</strong></div>
+      <div class="line"><span>Subtotal After Discounts</span><strong>₹{{totalprice}}</strong></div>
+      <div class="line"><span>Shipping</span><strong style="color:#16a34a">FREE</strong></div>
+      <div class="line"><span>Estimated Tax</span><strong>₹0.00</strong></div>
+      <div class="total"><span>Total</span><span>₹{{totalprice}}</span></div>
+        {% if paybtn %}
+       <form action="{% url 'payment' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="number" name="amount" value="{{totalprice}}" id="" hidden>
+      <button class="btn-pay" type="submit">Pay Now</button>
+      </form>
+      {% endif %}
+      {% if payment %}
+         <form action="{% url 'paymenthandle' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+        <script src="https://checkout.razorpay.com/v1/checkout.js"
+          data-key="{{payment.razorpay_key}}"
+          data-amount="{{ payment.amount }}"
+          data-currency="{{payment.currency}}"
+          data-order_id="{{ payment.order_id }}"
+          data-buttontext="Pay with Razorpay"
+          data-name="Shopsy"
+          data-description="Test Transaction"
+          data-image="https://yourdomain.com/logo.png"
+          data-prefill.name="Dharmendra"
+          data-prefill.email="dharmendra@example.com"
+          data-theme.color="#0864f9ff">
+      </script>
+     </form>
+      {% endif %}
+    </aside>
+  </main>
+
+{% endblock content %}
+
+
+{% block script %}
+  <script>
+
+
+  </script>
+{% endblock script %}
+

@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Shop online for All products{% endblock  %}
+
+{% block  link %} <link rel="stylesheet" href="{% static 'CSS/home.css' %}">  {% endblock  %}
+
+{% block content %}
+
+<section id="slider-section">
+<!-- Category Slider -->
+<div class="category-slider">
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="women" %}">
+        <img src="{% static 'images/topcategories/women.jpeg' %}" alt="Womens Clothing">
+        <p>Womens Clothing</p></a>
+    </div>
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="mens" %}">
+        <img src="{% static 'images/topcategories/mens.jpeg' %}" alt="Mens Clothing">
+        <p>Mens Clothing</p></a>
+    </div>
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="kids" %}">
+        <img src="{% static 'images/topcategories/kids.jpeg' %}" alt="Kids Clothing">
+        <p>Kids Clothing</p></a>
+    </div>
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="footwear" %}">
+        <img src="{% static 'images/topcategories/footwear.jpeg' %}" alt="Footwear">
+        <p>Footwear</p></a>
+    </div>
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="beauty" %}">
+        <img src="{% static 'images/topcategories/beauty.jpeg' %}" alt="Beauty">
+        <p>Beauty<span style="color: red;">&</span>Wellness</p></a>
+    </div>
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="electronic" %}">
+        <img src="{% static 'images/topcategories/electronic.jpeg' %}" alt="Electronics">
+        <p>Electronics</p></a>
+    </div>
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="accessories" %}">
+        <img src="{% static 'images/topcategories/accessories.jpeg' %}" alt="Accessories">
+        <p>Accessories
+          {% comment %} <span style="color: red;">&</span>Jewellery {% endcomment %}
+        </p></a>
+    </div>
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="decor" %}">
+        <img src="{% static 'images/topcategories/decor.jpeg' %}" alt="Home Decor">
+        <p>Home Decor</p></a>
+    </div>
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="furnish" %}">
+        <img src="{% static 'images/topcategories/furnish.jpeg' %}" alt="Furnishing">
+        <p>Home Furnishing</p></a>
+    </div>
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="kitchen" %}">
+        <img src="{% static 'images/topcategories/kitchen.jpeg' %}" alt="Kitchen">
+        <p>Kitchen<span style="color: red;">&</span>Appliances</p></a>
+    </div>
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="sports" %}">
+        <img src="{% static 'images/topcategories/sports.jpeg' %}" alt="Sports">
+        <p>Sports<span style="color: red;">&</span>Fitness</p></a>
+    </div>
+    <div class="category-item">
+        <a href="{% url 'categoryproducts' name="toys" %}">
+        <img src="{% static 'images/topcategories/toys.jpeg' %}" alt="Toys">
+        <p>Toys<span style="color: red;">&</span>Stationary</p></a>
+    </div>
+</div>
+
+<!-- Banner Slider -->
+<div class="banner-container">
+    <button class="arrow left" onclick="moveSlide(-1)">&#10094;</button>
+    <div class="banner-wrapper" id="bannerWrapper">
+        <div class="banner-slide"><img src="{% static 'images/homeslider/slideimg1.jpg' %}" alt="Banner 1"></div>
+        <div class="banner-slide"><img src="{% static 'images/homeslider/slideimg2.jpg' %}" alt="Banner 2"></div>
+        <div class="banner-slide"><img src="{% static 'images/homeslider/slideimg3.jpg' %}" alt="Banner 3"></div>
+        <div class="banner-slide"><img src="{% static 'images/homeslider/slideimg4.jpg' %}" alt="Banner 4"></div>
+    </div>
+    <button class="arrow right" onclick="moveSlide(1)">&#10095;</button>
+</div>
+     <h1 class="champion">Champion Categories</h1>
+     <div class="bottom-line"></div>
+<div class="container py-0">
+  <div class="row g-2">
+    <!-- Banner 1 -->
+    <div class="col-md-4 col-sm-6 col-12  custom1">
+      <div class="card text-center h-100">
+        <img src="{% static 'images/champcategory/kurties.jpg' %}" class="card-img-top" alt="Graphic Tees">
+      </div>
+    </div>
+
+    <!-- Banner 2 -->
+    <div class="col-md-4 col-sm-6 col-12 custom2">
+      <div class="card text-center h-100">
+        <img src="{% static 'images/champcategory/sliper.jpg' %}" class="card-img-top" alt="Graphic Tees">
+      </div>
+    </div>
+    <!-- Banner 3 -->
+     <div class="col-md-4 col-sm-6 col-12  custom3">
+      <div class="card text-center h-100">
+        <img src="{% static 'images/champcategory/perfume.jpg' %}" class="card-img-top" alt="Graphic Tees">
+      </div>
+    </div>
+    <!-- Banner 4 -->
+     <div class="col-md-4 col-sm-6 col-12 custom4">
+      <div class="card text-center h-100">
+        <img src="{% static 'images/champcategory/kitchen.jpg' %}" class="card-img-top" alt="Graphic Tees">
+      </div>
+    </div>
+    <!-- Banner 5 -->
+ <div class="col-md-4 col-sm-6 col-12 custom5">
+      <div class="card text-center h-100">
+        <img src="{% static 'images/champcategory/style1.jpg' %}" class="card-img-top" alt="Graphic Tees">
+      </div>
+    </div>
+    <!-- Banner 6 -->
+    <div class="col-md-4 col-sm-6 col-12 custom6">
+      <div class="card text-center h-100">
+        <img src="{% static 'images/champcategory/shoes.jpg' %}" class="card-img-top" alt="Graphic Tees">
+      </div>
+    </div>
+
+  </div>
+</div>
+   
+{% comment %} Product is starting from here {% endcomment %}
+
+<div class="container py-4 px-0">
+  <div class="row g-2"> 
+     <!-- Product Card -->
+      {% for product  in products %}
+    <div class="col-6 col-md-3 outer-card">
+      <div class="product-card">
+        <div class="image-card">
+        <div class="wishlist-icon">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+        <a href="{% url 'show_item' ds=product.description pk=product.id  %}">
+          <img src="{{product.thumbnail}}" class="product-img" alt="Product">
+        </a>
+        <div class="p-2">
+          <h6 class="mb-1 text-truncate">{{product.description}}</h6>
+          <div class="mb-1">
+            <span class="discount">{{product.offprice}}% off</span>
+            <span class="price-old">₹{{product.mrp}}</span>
+            <span class="fw-bold">₹{{product.price}}</span>
+          </div>
+          <div class="rating">
+            <i class="fa-solid fa-star text-success"></i> {{product.rating}} ★
+          </div>
+        </div>
+
+      </div>
+      </div>
+    </div> 
+    {% endfor %}
+    <!-- Duplicate more product cards as needed -->
+    
+  </div>
+</div>
+
+
+ 
+</section>
+
+
+{% endblock  %}
+
+
+
+
+{% block script %}
+
+<script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.banner-slide');
+    const wrapper = document.getElementById('bannerWrapper');
+
+    function moveSlide(direction) {
+        currentSlide += direction;
+        if (currentSlide < 0) currentSlide = slides.length - 1;
+        if (currentSlide >= slides.length) currentSlide = 0;
+        wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+    setInterval(() => {
+        moveSlide(1);
+    }, 3000);
+</script>
+{% endblock  %}

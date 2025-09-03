@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Signup</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css" integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body {
+    background: #f0f0f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+    padding: 15px;
+}
+a {
+    text-decoration: none;
+}
+.container {
+    background: white;
+    width: 100%;
+    max-width: 420px;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: inset 5px 5px 10px rgb(228, 220, 220),
+                inset -5px -5px 10px rgb(228, 220, 220);
+}
+
+.headbar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30%;
+    margin-bottom: 15px;
+}
+
+.arrow-left span {
+    font-size: 28px;
+    font-weight: bold;
+    color: rgb(88, 47, 255);
+}
+
+.logo a {
+    font-size: 30px;
+    font-weight: bold;
+    color: rgb(88, 47, 255);
+}
+
+#signup-btn{
+    background: linear-gradient(to right, #1e90ff, #004aad);
+    color: white;
+    margin-left: 10%;
+    border-radius: 17px;
+    align-items: center;
+    max-width: 300px;
+    padding: 10px 20px ;
+    font-size: 25px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    font-size: 15px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(to right, #1e90ff, #004aad);
+}
+.text {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.text a {
+    color: #1e90ff;
+}
+
+.alert-success {
+  background: linear-gradient(to right, #28a745, #218838);
+  color: white;
+}
+.alert-danger {
+  background: linear-gradient(to right, #dc3545, #c82333);
+  color: white;
+}
+.alert-warning {
+  background: linear-gradient(to right, #ffc107, #e0a800);
+  color: black;
+}
+.alert-info {
+  background: linear-gradient(to right, #17a2b8, #138496);
+  color: white;
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="headbar">
+       <a href="{% url 'home' %}" class="arrow-left"><span class="material-symbols-outlined">arrow_back</span></a>
+       <h1 class="logo"><a href="#">shopsy</a></h1>
+    </div>
+    <div class="d-flex justify-content-center align-items-center text-black">
+         Welcome
+    </div>
+    <h2 id="signup-btn">Create an Account</h2>
+     {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.level_tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+    <form action="{% url 'register_user' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" name=name   value="{{ name|default:'' }}" placeholder="Full Name" required>
+        <input type="email" name=email  value="{{ email|default:'' }}"  placeholder="Email Address" required>
+        <input type="number" name=number  value="{{ number|default:'' }}" placeholder="Contact Number" >
+        <input type="password" name=password  value="{{ password|default:'' }}" placeholder="Password" >
+        <input type="password" name=cpassword  value="" placeholder="Confirm Password" >
+        <button type="submit" class="submit-btn">Register</button>
+        <div class="text">Already a member? <a href="{% url 'login_user' %}">Login now</a></div>
+    </form>
+</div>
+
+<script>
+      setTimeout(() => {
+    document.querySelectorAll('.alert').forEach(alert => {
+      alert.classList.remove('show');
+      alert.classList.add('fade');
+    });
+  }, 4000); // 4 seconds
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  {% if messages %}
+  {% for message in messages %}
+    <script>
+      Swal.fire({
+        icon: '{{ message.tags }}',
+        title: '{{ message }}'
+      });
+    </script>
+  {% endfor %}
+{% endif %}
+
+
+</body>
+</html>

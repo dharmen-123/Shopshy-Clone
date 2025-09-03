@@ -1,0 +1,320 @@
+
+:root{
+  --brand-blue:#2874f0;          /* links, active thumb border */
+  --accent-cart:#ff9f00;         /* Add to Cart */
+  --accent-buy:#2f5ee9;          /* Buy Now */
+  --accent-buy-hover:#1272df;
+  --accent-cart-hover:#e79000;
+  --green:#388e3c;               /* offers/success */
+  --text:#212121;
+  --muted:#878787;
+  --surface:#ffffff;
+  --soft:#f5f7fb;
+  --line:#e0e0e0;
+  --shadow:0 6px 30px rgba(0,0,0,.08);
+}
+
+/* Reset tweaks */
+*{box-sizing:border-box}
+img{display:block;max-width:100%}
+.show-product{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial,sans-serif;color:var(--text)}
+.product-part{align-items:flex-start}
+
+/* =========================================================
+   LEFT COLUMN  (Sticky gallery like your desktop screenshot)
+   ========================================================= */
+.product-left{
+  position:sticky;
+  /* top:16px; */
+  height:calc(100vh - 32px);
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  background:transparent;
+  z-index:1;
+}
+
+.product-images{
+  display:grid;
+  grid-template-columns: 88px 1fr;  /* thumbnail rail + big image */
+  gap:16px;
+  align-items:start;
+}
+
+/* Thumbnail rail (vertical on desktop) */
+.product-thumbnails{
+  width:88px;
+  max-height: 450px;
+  overflow:auto;
+  scrollbar-width: none;
+  padding-right:4px;
+}
+.product-thumbnails img{
+  width:72px;height:72px;
+  object-fit:cover;
+  margin:0px auto;
+  border-radius:8px;
+  border:2px solid transparent;
+  background:#fff;
+  box-shadow:0 1px 6px rgba(0,0,0,.06);
+  transition:all .2s ease;
+  cursor:pointer;
+}
+.product-thumbnails img:hover{
+  transform:translateY(-1px);
+  box-shadow:0 4px 14px rgba(0,0,0,.10);
+}
+.product-thumbnails img.is-active{           /* add this class via JS if you want */
+  border-color:var(--brand-blue);
+}
+
+#bottom-thumnail{
+    display: none;
+}
+/* Main image card */
+.product-main-image{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:12px;
+  box-shadow:var(--shadow);
+  padding:2px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.product-main-image img{
+  width:100%;
+  max-height: 450px;
+  object-fit:contain;
+  border-radius:10px;
+  background:#fff;
+}
+
+/* Floating wishlist/share buttons */
+.wishlist-btn,.share-btn{
+  position:absolute;top:14px;
+  display:grid;place-items:center;
+  width:40px;height:40px;
+  border-radius:50%;
+  background:rgba(255,255,255,.95);
+  border:1px solid var(--line);
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+  cursor:pointer;transition:.2s;
+}
+.wishlist-btn{right:14px}
+.share-btn{right:60px}
+.wishlist-btn:hover,.share-btn:hover{
+  background:#fff;transform:translateY(-1px)
+}
+
+/* Action buttons (bottom of left column) */
+.action-buttons{
+  display:flex;gap:16px;
+}
+.action-buttons form .btn{
+  height:56px;border-radius:8px;
+  text-transform:uppercase;font-weight:600;
+  letter-spacing:.2px;box-shadow:var(--shadow);
+}
+
+/* Turn first button into orange Add to Cart, second into Buy Now */
+.action-buttons form .btn:first-child{
+  /* background:var(--accent-cart); */
+  background-color: rgb(171, 90, 3);
+  border:none;
+  color:#fff;
+}
+.action-buttons form .btn:first-child:hover{
+  /* background:var(--accent-cart-hover); */
+  background-color: orange;
+}
+.action-buttons form .btn:last-child{
+  background:var(--accent-buy);
+  border:none;
+  color:#fff;
+}
+.action-buttons form .btn:last-child:hover{
+  background:var(--accent-buy-hover);
+}
+
+.product-right{
+  max-height:calc(100vh - 32px);
+  overflow-y:auto;
+  padding-right:8px;
+  scrollbar-width: none;
+  scroll-behavior:smooth;
+  background:transparent;
+}
+
+/* Prices & Rating */
+.price{font-size:2rem;font-weight:700;margin-right:10px}
+.old-price{color:var(--muted);text-decoration:line-through;margin-right:8px}
+.discount{color:var(--green);font-weight:700}
+.text-success{color:var(--green)!important}
+.rating{color:#05f109}
+
+/* Size selector chips */
+.size-btn{gap:10px;flex-wrap:wrap}
+.size-btn input{display:none}
+.size-btn label{
+  padding:8px 14px;border:1.5px solid var(--line);
+  border-radius:8px;background:#fff;cursor:pointer;
+  min-width:44px;text-align:center;font-weight:600;
+  transition:.2s;
+}
+.size-btn label:hover{border-color:var(--brand-blue)}
+.size-btn input:checked + label{
+  color:#fff;background:var(--brand-blue);border-color:var(--brand-blue)
+}
+
+/* Spec card */
+.spec-box{
+  margin-top:18px;padding:16px 16px 6px;
+}
+.spec-box li{padding:6px 0;}
+.spec-box li:last-child{border-bottom:0}
+
+/* Subtle custom scrollbar (desktop) */
+.product-right::-webkit-scrollbar,
+.product-thumbnails::-webkit-scrollbar{width:8px}
+.product-right::-webkit-scrollbar-thumb,
+.product-thumbnails::-webkit-scrollbar-thumb{
+  background:#d7def7;border-radius:20px
+}
+
+
+@media (max-width: 1199.98px){
+  .product-left{
+    height:auto;
+    top:12px;
+  }
+  .product-main-image img{
+    height:min(66vh,640px);
+  }
+  .product-thumbnails{
+    max-height:unset; 
+    height: 450px;          /* avoid tiny rail on short tablets */
+  }
+}
+
+@media(max-width:990px){
+    .product-right{
+    overflow-y:visible !important;
+    padding-right: 0;
+    max-height: unset;
+    }
+    .product-left{
+        position: unset;
+    }
+}
+
+@media (max-width: 767.98px){
+
+  /* Layout stacks; left is no longer sticky */
+  .product-left{
+    position:relative;height:auto;top:auto;gap:12px
+  }
+
+  .product-about .url-line{
+     display: none !important;
+   }
+  /* Thumbnails become horizontal slider-like strip */
+  .product-images{
+    display:block;
+  }
+  .product-thumbnails{
+    width:100%;
+    display:flex;gap:12px;align-items:center;
+    overflow-x:auto;
+    scrollbar-width: none;
+    overflow-y:hidden;
+    padding:4px 2px 8px;
+    scroll-snap-type:x mandatory;      /* slider feel */
+  }
+  #bottom-thumnail{
+    display: flex !important;
+    overflow-x: auto;
+    scrollbar-width: none;
+    height: 70px;
+    display: block;
+  }
+  #top-thumnail{
+    display: none;
+  }
+  .product-thumbnails img{
+    width:76px;height:76px;margin:0;
+    flex:0 0 auto;scroll-snap-align:center;
+  }
+
+  /* Main image card grows full width */
+
+  .product-main-image img{
+    height:58vh;
+  }
+  .wishlist-btn,.share-btn{top:10px}
+  .wishlist-btn{right:10px}
+  .share-btn{right:56px}
+
+  /* Fixed bottom bar like screenshot */
+  .action-buttons{
+
+    position:fixed;left:0;right:0;bottom:0;z-index:20;
+    padding:10px 12px;background:#fff;border-top:1px solid var(--line);
+    box-shadow:0 -6px 22px rgba(0,0,0,.08);
+  }
+  .action-buttons form .btn{height:50px;font-size:.95rem}
+  /* Give page content breathing room so bar doesn't cover it */
+  .product-right{padding-bottom:92px}
+
+
+}
+
+@media (min-width: 1400px){
+  .product-main-image img{height:min(78vh,820px)}
+  .price{font-size:2.2rem}
+}
+
+/* Small utility for links that mimic your screenshots */
+a{color:var(--brand-blue);text-decoration:none}
+
+  .list-group-item {
+    border-bottom: none !important;
+  }
+
+  /* Optional: remove all borders if needed */
+  .list-group-item {
+    border: none !important;
+  }
+    .stars {
+      color: green;
+      font-size: 24px;
+    }
+    .rating-summary {
+      margin-bottom: 10px;
+    }
+    .bar-container {
+      display: flex;
+      align-items: center;
+      margin: 5px 0;
+    }
+    .bar-label {
+      width: 30px;
+    }
+    .bar {
+      background-color: #eee;
+      height: 10px;
+      width: 150px;
+      margin: 0 10px;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    .green { background-color: green; }
+    .gray { background-color: gray; }
+    .orange { background-color: orange; }
+    .red { background-color: red; }

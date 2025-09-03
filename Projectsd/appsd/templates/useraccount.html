@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}User Dashboard{% endblock  %}
+
+{% block link %} <link rel="stylesheet" href="{% static 'CSS/useraccount.css' %}"> 
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  a{
+    text-decoration: none;
+    color: #333;
+  }
+</style>
+  {% endblock  %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<section class="main_user_section">
+  <section class="header_name">
+    <h1>Hi {{name}}</h1>
+    <div class="cart-icon">🪙 </div>
+  </section>
+
+  <!-- Quick Access -->
+  <div class="dashboard-section">
+    <div class="grid">
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Orders</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">💖</div>
+        <div class="card-title">Wishlist Items</div>
+      </div>
+     <a href="{% url 'cart_user' %}"><div class="card">
+        <div class="card-icon">🛒</div>
+        <div class="card-title">My Carts</div>
+      </div></a>
+      <div class="card">
+        <div class="card-icon">📞</div>
+        <div class="card-title">Contact Us</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Credit Options -->
+  <div class="dashboard-section">
+    <div class="section-title">Credit Options</div>
+    <div class="list">
+      <div class="list-item">
+        <div class="list-icon">📄</div>
+        <div class="list-content">
+          <div class="list-title">Personal Loan</div>
+          <div class="list-desc">Get loan upto 5 Lakhs instantly</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+      <div class="list-item">
+        <div class="list-icon">🛍️</div>
+        <div class="list-content">
+          <div class="list-title">Buy Now Pay Later</div>
+          <div class="list-desc">Get what you love and pay later</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+      <div class="list-item">
+        <div class="list-icon">✅</div>
+        <div class="list-content">
+          <div class="list-title">Check Credit Score</div>
+          <div class="list-desc">Free score check. Personalized loan offers</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Account Settings -->
+  <div class="dashboard-section">
+    <div class="section-title">Account Settings</div>
+    <div class="list">
+      <div class="list-item">
+        <div class="list-icon">💳</div>
+        <div class="list-content">
+          <div class="list-title">My Cards and Wallet</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+      <div class="list-item">
+        <div class="list-icon">📍</div>
+        <div class="list-content">
+          <div class="list-title">Saved Addresses</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+      <div class="list-item">
+        <div class="list-icon">👤</div>
+        <div class="list-content">
+          <a href="{% url 'change_password_page' %}" style="text-decoration: none; color: #333;"><div class="list-title">Change Password</div></a>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- My Activity -->
+  <div class="dashboard-section">
+    <div class="section-title">My Activity</div>
+    <div class="list">
+      <div class="list-item">
+        <div class="list-icon">💬</div>
+        <div class="list-content">
+          <div class="list-title">Reviews</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+      <div class="list-item">
+        <div class="list-icon">❓</div>
+        <div class="list-content">
+          <div class="list-title">Questions & Answers</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supplier -->
+  <div class="dashboard-section">
+    <div class="section-title">Become a Supplier</div>
+    <div class="list">
+      <div class="list-item">
+        <div class="list-icon">🏪</div>
+        <div class="list-content">
+          <div class="list-title">Supplier Hub</div>
+          <div class="list-desc">Online selling made simple</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feedback -->
+  <div class="dashboard-section">
+    <div class="section-title">Feedback & Information</div>
+    <div class="list">
+      <div class="list-item">
+        <div class="list-icon">📑</div>
+        <div class="list-content">
+          <div class="list-title">Terms, Policies and Licenses</div>
+        </div>
+        <div class="arrow">›</div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock  %}
+
+
+{% block script %}
+
+{% endblock  %}
