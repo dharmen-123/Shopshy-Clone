@@ -109,23 +109,23 @@ def register_user(request):
 
         if len(number) != 10:
             messages.error(request, 'Contact number must be exactly 10 digits.')
-            return render(request,'register.html',context)
+            return render(request,'register.html')
 
         if not re.match(r'^[6-9]\d{9}$', number):
             messages.error(request, 'Enter a valid mobile number.')
-            return render(request,'register.html',context)
+            return render(request,'register.html')
         
         if not password:
             messages.error(request, 'Enter the password')
-            return render(request,'register.html',context)
+            return render(request,'register.html')
 
         if len(password) < 8:
             messages.error(request, 'Password must be at least 8 characters long.')
-            return render(request,'register.html',context)
+            return render(request,'register.html')
          
         if not re.search(r'[!@#$%^&*(),.?":{}|<>]', password):
             messages.error(request, 'Password must contain at least one special character.')
-            return render(request,'register.html',context)
+            return render(request,'register.html')
 
         elif password != cpassword:
             messages.error(request,'Password do not match')
