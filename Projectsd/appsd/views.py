@@ -98,7 +98,7 @@ def register_user(request):
         if User.objects.filter(email=email).exists():
             messages.error(request,'Email Already exist')
             return render(request,'register.html')
-        
+           
         if not number:
             messages.error(request,'Please enter the number')
             return render(request,'register.html')
